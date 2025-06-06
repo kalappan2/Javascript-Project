@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Form Data with Local Storage</title>
+  <style>
+    body {
+      background-image: url('z1.webp');
+      min-height: 100vh;
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 50px;
+    }
+
+    h2.o {
+      font-size: 3rem; /* large on desktop */
+      margin-bottom: 30px;
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+      padding: 0 10px;
+    }
+
+    form {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px 25px;
+      border-radius: 8px;
+      width: 500px;
+      max-width: 100%;
+      color: white;
+      box-sizing: border-box;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 10px 5px;
+      vertical-align: middle;
+    }
+
+    label {
+      display: block;
+      font-size: 1.1rem;
+      white-space: nowrap;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: none;
+      box-sizing: border-box;
+    }
+
+    button,
+    .clear-button {
+      width: 100%;
+      padding: 12px 0;
+      margin-top: 10px;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"] {
+      background-color: green;
+      color: white;
+    }
+
+    button[type="submit"]:hover {
+      background-color: darkgreen;
+    }
+
+    .clear-button {
+      background-color: red;
+      color: white;
+    }
+
+    .clear-button:hover {
+      background-color: darkred;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      h2.o {
+        font-size: 2.4rem;
+        margin-bottom: 25px;
+      }
+
+      form {
+        width: 90%;
+        padding: 15px 20px;
+      }
+
+      label {
+        font-size: 1rem;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"],
+      select {
+        font-size: 0.95rem;
+        padding: 7px 8px;
+      }
+
+      button,
+      .clear-button {
+        font-size: 1rem;
+        padding: 10px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h2.o {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+      }
+
+      form {
+        width: 100%;
+        padding: 12px 15px;
+      }
+
+      label {
+        font-size: 0.95rem;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"],
+      select {
+        font-size: 0.9rem;
+        padding: 6px 7px;
+      }
+
+      button,
+      .clear-button {
+        font-size: 0.95rem;
+        padding: 9px 0;
+      }
+    }
+
+    @media (max-width: 320px) {
+      h2.o {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      label {
+        font-size: 0.9rem;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"],
+      select {
+        font-size: 0.85rem;
+        padding: 5px 6px;
+      }
+
+      button,
+      .clear-button {
+        font-size: 0.85rem;
+        padding: 8px 0;
+      }
+    }
+
+
+    /* Existing smaller screen styles */
+
+@media (max-width: 480px) {
+  h2.o {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  form {
+    width: 100%;
+    padding: 12px 15px;
+  }
+
+  label {
+    font-size: 0.95rem;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  select {
+    font-size: 0.9rem;
+    padding: 6px 7px;
+  }
+
+  button,
+  .clear-button {
+    font-size: 0.95rem;
+    padding: 9px 0;
+  }
+}
+
+/* NEW: Bigger labels for screens 412px and below */
+@media (max-width: 412px) {
+  label {
+    font-size: 1.2rem !important;
+  }
+}
+
+@media (max-width: 320px) {
+  h2.o {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  select {
+    font-size: 0.85rem;
+    padding: 5px 6px;
+  }
+
+  button,
+  .clear-button {
+    font-size: 0.85rem;
+    padding: 8px 0;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <h2 class="o">User Information Form</h2>
+
+  <!-- Form to collect user data -->
+  <form id="userForm">
+    <table>
+      <tr>
+        <td><label for="username">Username: </label></td>
+        <td><input type="text" id="username" name="username" required /></td>
+      </tr>
+      <tr>
+        <td><label for="password">Password: </label></td>
+        <td><input type="password" id="password" name="password" required /></td>
+      </tr>
+      <tr>
+        <td><label for="email">Email: </label></td>
+        <td><input type="email" id="email" name="email" required /></td>
+      </tr>
+      <tr>
+        <td><label for="phone">Phone Number: </label></td>
+        <td><input type="text" id="phone" name="phone" required /></td>
+      </tr>
+      <tr>
+        <td><label for="address">Address: </label></td>
+        <td><input type="text" id="address" name="address" required /></td>
+      </tr>
+      <tr>
+        <td><label for="city">City: </label></td>
+        <td><input type="text" id="city" name="city" required /></td>
+      </tr>
+      <tr>
+        <td><label for="iphoneBrand">Select iPhone Brand: </label></td>
+        <td>
+          <select id="iphoneBrand" name="iphoneBrand" required>
+            <option value="">Select Brand</option>
+            <option value="iPhone 14">iPhone 14</option>
+            <option value="iPhone 13">iPhone 13</option>
+            <option value="iPhone 12">iPhone 12</option>
+            <option value="iPhone 11">iPhone 11</option>
+            <option value="iPhone SE">iPhone SE</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button type="submit">Submit</button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button type="button" class="clear-button" onclick="clearLocalStorage()">
+            Clear All Data
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <script>
+    // Function to store form data in localStorage
+    document.getElementById("userForm").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent form from submitting and reloading page
+
+      // Get form data
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const address = document.getElementById("address").value;
+      const city = document.getElementById("city").value;
+      const iphoneBrand = document.getElementById("iphoneBrand").value;
+
+      // Store the data in an object
+      const userData = {
+        username,
+        phone,
+        email,
+        iphoneBrand,
+        address,
+        city,
+      };
+
+      // Save user data in localStorage
+      localStorage.setItem("userData", JSON.stringify(userData));
+
+      // Print stored data to the console in the desired order
+      console.log("User Data Stored:");
+      console.log("Username: " + username);
+      console.log("Phone: " + phone);
+      console.log("Email: " + email);
+      console.log("iPhone Brand: " + iphoneBrand);
+      console.log("Address: " + address);
+      console.log("City: " + city);
+
+      // Show alert message with user details in order
+      alert(
+        `Form submitted successfully!\nUsername: ${username}\nPhone: ${phone}\nEmail: ${email}\nPhone Brand: ${iphoneBrand}\nAddress: ${address}\nCity: ${city}`
+      );
+
+      // Clear the form after submission
+      document.getElementById("userForm").reset();
+    });
+
+    // Function to clear all data from localStorage and reset the form
+    function clearLocalStorage() {
+      localStorage.removeItem("userData");
+      console.log("User data has been cleared from localStorage!");
+
+      // Optionally, you can reset the form fields as well
+      document.getElementById("userForm").reset();
+    }
+  </script>
+</body>
+</html>

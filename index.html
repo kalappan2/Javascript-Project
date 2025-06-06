@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Login Form</title>
+    
+    <!-- Google Font Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Base & Resets --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('pic1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            
+            /* Center the form perfectly */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- Form Container with Frosted Glass Effect --- */
+        .form-container {
+            width: 100%;
+            max-width: 420px; /* Max width for the form on larger screens */
+            background: rgba(35, 35, 55, 0.4); /* Dark, semi-transparent background */
+            backdrop-filter: blur(10px); /* The "frosted glass" effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari compatibility */
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 35px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* --- Form Elements Styling --- */
+         /* Flex-direction: column makes items stack vertically in source order */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between form groups */
+        }
+        
+        .form-title {
+            font-size: 2.2rem;
+            color: #ffffff;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+        
+       /* Input labels */
+        label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            position: absolute; /* Allows for floating label effect */
+            top: 10px;
+            left: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .s {
+            border: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            background-color: transparent;
+            padding: 10px 0;
+            font-size: 1rem;
+            color: white;
+            width: 100%;
+            outline: none;
+        }
+        
+        /* Float label up when typing or when input has value */
+        .s:focus + label, .s:not(:placeholder-shown) + label {
+            top: -16px;
+            font-size: 0.8rem;
+            color: #00aaff;
+        }
+
+        .s:focus {
+            border-bottom-color: #00aaff; /* A nice accent blue */
+        }
+
+        ::placeholder { /* Hides default placeholder but keeps the :not(:placeholder-shown) selector working */
+            color: transparent;
+        }
+
+        /* --- Checkbox Styling --- */
+         /* Checkbox-specific label */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            cursor: pointer;
+             /* Override floating label styles just for the checkbox wrapper */
+             position: static; 
+             top: auto;
+             left:auto;
+             font-size: 0.9rem;
+             color: rgba(255, 255, 255, 0.9);
+             pointer-events: auto;
+        }
+
+        #checkbox {
+            appearance: none; /* Hide default checkbox */
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+             flex-shrink: 0; /* prevent checkbox from shrinking */
+        }
+
+        #checkbox:checked {
+            background-color: #00aaff;
+            border-color: #00aaff;
+        }
+        
+        #checkbox:checked::before {
+            content: '✔';
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            top: -2px;
+            left: 2px;
+        }
+
+        /* --- Error Message Styling --- */
+        .error-message {
+            color: #ff4757;
+            font-size: 0.85rem;
+            font-weight: bold;
+             /* reserve space so layout doesn't jump when error appears */
+            min-height: 20px;
+            padding-top: 5px;
+        }
+         /* specific margin for checkbox error to align better */
+        .checkbox-wrapper .error-message {
+           margin-left: 30px; /* 18px checkbox + 12px gap */
+        }
+
+
+        /* --- Submit Button --- */
+        #kala {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #00aaff, #0077cc);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #kala:hover {
+            background: linear-gradient(90deg, #0099e6, #0066b3);
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* --- Footer Link --- */
+        .form-footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .form-footer a {
+            color: #00aaff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- RESPONSIVE DESIGN for mobile (414px and below) --- */
+        @media (max-width: 414px) {
+            .form-container {
+                padding: 30px 25px; /* Less padding on smaller screens */
+            }
+
+            .form-title {
+                font-size: 1.8rem; /* Smaller title */
+                margin-bottom: 15px;
+            }
+            
+            form {
+                gap: 15px; /* Less space between form groups */
+            }
+
+            #kala {
+                padding: 12px;
+                font-size: 1rem;
+            }
+             .checkbox-group {
+                 font-size: 0.85rem;
+             }
+             .error-message {
+                 font-size: 0.8rem;
+             }
+        }
+    </style>
+    <script>
+        // NO CHANGES NEEDED IN JAVASCRIPT
+        function f(event) {
+            let name = document.getElementById('name').value;
+            let password = document.getElementById('password').value;
+            let email = document.getElementById('email').value;
+            let checkbox = document.getElementById('checkbox').checked;
+
+            let nameError = document.getElementById('name-Error');
+            let passError = document.getElementById('pass-Error');
+            let emailError = document.getElementById('email-Error');
+            let checkerror = document.getElementById('checkerror');
+
+            let isValid = true;
+            
+            if (name === "" || /[^a-zA-Z ]/.test(name)) {
+                nameError.innerHTML = "⚠️ Name must only contain letters.";
+                isValid = false;
+            } else {
+                nameError.innerHTML = "";
+            }
+
+            let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/;
+            if (password === "" || !passwordRegex.test(password)) {
+                passError.innerHTML = "⚠️ 7+ chars with letters, numbers, & symbols.";
+                isValid = false;
+            } else {
+                passError.innerHTML = "";
+            }
+
+            let p = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (email === "" || !p.test(email)) {
+                emailError.innerHTML = "⚠️ Please enter a valid email.";
+                isValid = false;
+            } else {
+                emailError.innerHTML = "";
+            }
+
+            if (!checkbox) {
+                 // added a space for alignment if error shows
+                checkerror.innerHTML = "⚠️ You must agree to the terms.";
+                isValid = false;
+            } else {
+                checkerror.innerHTML = "";
+            }
+
+            if (isValid) {
+                alert("Form submitted successfully!");
+                 // document.getElementById("loginForm").reset(); // Optional: reset form on success
+                 // nameError.innerHTML = ""; passError.innerHTML = ""; emailError.innerHTML = ""; checkerror.innerHTML = "";
+                return true;
+            } else {
+                event.preventDefault();
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    
+    <div class="form-container">
+        <h1 class="form-title">Create Account</h1>
+
+       <!-- form uses flex-direction: column; so elements appear in source order -->
+        <form action="Main page.html" onsubmit="return f(event)" id="loginForm">
+            
+           <!-- 1. USERNAME -->
+            <div class="form-group">
+                <input type="text" id="name" class="s" placeholder=" ">
+                <label for="name">Username</label>
+                <div id="name-Error" class="error-message"></div>
+            </div>
+
+           <!-- 2. PASSWORD -->
+            <div class="form-group">
+                <input type="password" id="password" class="s" placeholder=" ">
+                <label for="password">Password</label>
+                <div id="pass-Error" class="error-message"></div>
+            </div>
+
+           <!-- 3. EMAIL -->
+           <!-- START: Email Group -->
+            <div class="form-group">
+                <input type="email" id="email" class="s" placeholder=" ">
+                <label for="email">Email</label>
+                 <div id="email-Error" class="error-message"></div>
+            </div>
+           <!-- END: Email Group -->
+
+
+           <!-- 4. CHECKBOX (Appears AFTER the Email Group div above) -->
+           <!-- START: Checkbox Group -->
+            <div class="checkbox-wrapper">
+                <label class="checkbox-group" for="checkbox"> <!-- Added for="" for accessibility -->
+                    <input type="checkbox" id="checkbox">
+                    <span>I agree to the terms and services</span>
+                </label>
+                 <!-- Error message for checkbox -->
+                <div id="checkerror" class="error-message"></div> 
+            </div>
+          <!-- END: Checkbox Group -->
+            
+
+           <!-- 5. SUBMIT BUTTON (Appears AFTER the Checkbox Group div above) -->
+            <input type="submit" id="kala" value="Submit">
+
+        </form>
+
+        <p class="form-footer">Already have an account? <a href="#">Log In</a></p>
+    </div>
+
+</body>
+</html>
