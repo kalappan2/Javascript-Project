@@ -7,14 +7,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
 
   <style>
-    /*body {
-      background-image: url('k4.jpg');
-      background-attachment: fixed;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      min-height: 100vh;
-    }*/
+    /* General Styles */
+    body {}
 
     .navbar-brand img {
       position: relative;
@@ -47,96 +41,70 @@
       overflow: hidden;
     }
 
-    .bg {
-      background-image: url('pic5.jpg');
+    .bg { background-image: url('pic5.jpg'); }
+    .de { background-image: url('Pic7.jpg'); }
+    .i1:hover { transform: rotateY(360deg); transition: transform 2s; }
+    .hero-title { font-size: 60px; font-weight: 700; color: white; text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7); }
+    .hero-subtitle { font-size: 34px; font-weight: 700; color: white; text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.75); }
+
+    .btn-hero { padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 8px; border: 2px solid transparent; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; }
+    .btn-hero:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25); }
+    .btn-hero.primary-light { background-color: white; color: #0071e3; border-color: white; }
+    .btn-hero.secondary-light { background-color: white; color:#0071e3;  border-color: white; }
+    .btn-hero.secondary-light:hover { background-color: white; color: #0071e3; }
+    .btn-hero.primary-dark { background-color: #1d1d1f; color: white; border-color: #1d1d1f; }
+    .btn-hero.secondary-dark { background-color: #1d1d1f; color: white; border-color: #1d1d1f; }
+    .btn-hero.secondary-dark:hover { background-color: #1d1d1f; color: white; }
+
+
+    /* --- NEW CSS-ONLY RESPONSIVE CAROUSEL SOLUTION --- */
+    #imageCarousel .carousel-inner {
+      /* Define aspect ratio for large screens (desktops) */
+      aspect-ratio: 16 / 9;
     }
 
-    .de {
-      background-image: url('Pic7.jpg');
+    /* For screens BELOW 1080px (tablets, small desktops) */
+    @media (max-width: 1079.98px) {
+      #imageCarousel .carousel-inner {
+        /* Use a taller aspect ratio to increase height */
+        aspect-ratio: 4 / 3;
+      }
     }
 
-    .i1:hover {
-      transform: rotateY(360deg);
-      transition: transform 2s;
+    /* For screens BELOW 768px (mobile phones) */
+    @media (max-width: 767.98px) {
+      #imageCarousel .carousel-inner {
+        /* Use a portrait aspect ratio for mobile */
+        aspect-ratio: 3 / 4;
+      }
+    }
+    
+    /* These rules make sure the carousel items and images fill the container perfectly */
+    #imageCarousel .carousel-item,
+    #imageCarousel .carousel-img {
+      width: 100%;
+      height: 100%;
     }
 
-    .hero-title {
-      font-size: 60px;
-      font-weight: 700;
-      color: white;
-      text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
+    #imageCarousel .carousel-img {
+      /* This ensures all images (1st, 2nd, 3rd) fill the space
+         without being stretched or distorted. */
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    /* Grid Image Styles */
+    .i1.img-fluid {
+      height: 472px;
+      width: 100%;
+      object-fit: cover;
     }
 
-    .hero-subtitle {
-      font-size: 34px;
-      font-weight: 700;
-      color: white;
-      text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.75);
-    }
-
-    .btn-hero {
-      padding: 14px 32px;
-      border-radius: 50px;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-block;
-      margin: 8px;
-      border: 2px solid transparent;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .btn-hero:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-    }
-
-    .btn-hero.primary-light {
-      background-color: white;
-      color: #0071e3;
-      border-color: white;
-    }
-
-    .btn-hero.secondary-light {
-      background-color: transparent;
-      color: white;
-      border-color: white;
-    }
-
-    .btn-hero.secondary-light:hover {
-      background-color: white;
-      color: #0071e3;
-    }
-
-    .btn-hero.primary-dark {
-      background-color: #1d1d1f;
-      color: white;
-      border-color: #1d1d1f;
-    }
-
-    .btn-hero.secondary-dark {
-      background-color: transparent;
-      color: #1d1d1f;
-      border-color: #1d1d1f;
-    }
-
-    .btn-hero.secondary-dark:hover {
-      background-color: #1d1d1f;
-      color: white;
-    }
-
+    /* Responsive Animations & Layout */
     @keyframes moveUp {
-      from {
-        opacity: 0;
-        transform: translateY(60px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(60px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
     @media (min-width: 992px) {
       .hero-content.animate-on-large {
         opacity: 0;
@@ -144,70 +112,29 @@
         padding-bottom: 40px;
       }
     }
-
     @media (max-width: 991.98px) {
-      .navbar-collapse {
-        text-align: center;
-      }
-
-      .navbar-nav .nav-link {
-        padding-top: 0.8rem;
-        padding-bottom: 0.8rem;
-      }
+      .navbar-collapse { text-align: center; }
+      .navbar-nav .nav-link { padding-top: 0.8rem; padding-bottom: 0.8rem; }
     }
 
-    .carousel-img {
-      width: 100%;
-      height: 600px;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    /* ✅ Responsive background image and hero section under 768px */
-    @media screen and (max-width: 768px) {
-      body {
-        background-size: contain;
-        background-attachment: scroll;
-        min-height: auto;
-      }
-
-      .carousel-img {
-        height: 300px;
-      }
-
-      .hero-title {
-        font-size: 38px;
-      }
-
-      .hero-subtitle {
-        font-size: 24px;
-      }
-
-      .hero-section {
-        min-height: 400px;
-        padding: 20px 10px;
-      }
-
-      .navbar-brand img {
-        width: 80px;
-        height: auto;
-      }
-
-      .bg, .de {
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-      }
-    }
-    .i1 img-fluid{
-      height: 472px;
+    /* Responsive styles for screens under 768px */
+    @media screen and (max-width: 767.98px) {
+      body { background-size: contain; background-attachment: scroll; min-height: auto; }
+      .hero-title { font-size: 38px; }
+      .hero-subtitle { font-size: 24px; }
+      .hero-section { min-height: 400px; padding: 20px 10px; }
+      .navbar-brand img { width: 80px; height: auto; }
+      .bg, .de { background-size: cover; background-position: center center; background-repeat: no-repeat; }
+      .i1.img-fluid { height: 250px; }
     }
   </style>
 </head>
 
 <body>
+  <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+  <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg bg-black navbar-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#"><img src="pic4.jpg" alt="Logo" /></a>
@@ -227,6 +154,7 @@
     </div>
   </nav>
 
+  <!-- Hero Sections -->
   <div class="bg hero-section">
     <div class="hero-content animate-on-large">
       <p class="hero-title">iPhone 16 Pro</p>
@@ -237,7 +165,6 @@
       </div>
     </div>
   </div>
-
   <div class="de hero-section">
     <div class="hero-content animate-on-large">
       <p class="hero-title">iPhone 16 Pro</p>
@@ -249,6 +176,7 @@
     </div>
   </div>
 
+  <!-- Image Grid -->
   <div class="container py-5">
     <div class="row g-4">
       <div class="col-12 col-md-6"><img src="img1.jpg" class="i1 img-fluid" /></div>
@@ -260,18 +188,22 @@
     </div>
   </div>
 
-  <div id="carouselExampleSlidesOnly" class="carousel slide mt-5" data-bs-ride="carousel">
+  <!-- Carousel -->
+  <div id="imageCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active" data-bs-interval="2000">
-        <img src="s1.webp" class="d-block w-100 carousel-img" alt="...">
+        <img src="s1.webp" class="d-block carousel-img" alt="...">
       </div>
       <div class="carousel-item" data-bs-interval="2000">
-        <img src="s2.webp" class="d-block w-100 carousel-img" alt="...">
+        <img src="s2.webp" class="d-block carousel-img" alt="...">
       </div>
       <div class="carousel-item" data-bs-interval="2000">
-        <img src="a15.avif" class="d-block w-100 carousel-img" alt="...">
+        <img src="a15.avif" class="d-block carousel-img" alt="...">
       </div>
     </div>
   </div>
+
+  <!-- NO JAVASCRIPT IS NEEDED FOR THIS SOLUTION -->
+
 </body>
 </html>
