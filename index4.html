@@ -53,6 +53,7 @@
     .card-text {
       font-size: 1.1rem;
       color: #333;
+      font-weight: 600;
     }
 
     .btn-buy {
@@ -73,6 +74,17 @@
       background-color: #0056b3;
       transform: scale(1.05);
       color: white;
+    }
+
+    /* FIXED: Added focus and active states to maintain button styling */
+    .btn-buy:focus,
+    .btn-buy:active,
+    .btn-buy:focus:active {
+      background-color: #0056b3 !important;
+      color: white !important;
+      border: none !important;
+      box-shadow: none !important;
+      outline: none !important;
     }
 
     @media (max-width: 576px) {
